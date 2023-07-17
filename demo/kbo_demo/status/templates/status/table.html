@@ -1,0 +1,12 @@
+<table border=1>
+    {% for info in pitcherInfo %} 
+        <tr>
+            {% for score in info %}
+                <td>
+                    {{score}}
+                </td>
+            {% endfor %}
+        </tr>  
+    {% endfor %}
+</table>
+
