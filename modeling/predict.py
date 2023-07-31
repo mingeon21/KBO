@@ -42,5 +42,3 @@ def main():
     predict_val = model.predict([[5], [6]])
     print(predict_val)
 
-
-main()
