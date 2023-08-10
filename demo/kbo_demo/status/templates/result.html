@@ -5,9 +5,15 @@
   <title>Django Highcharts Example</title>
 </head>
 <body>
-    {{w}}
-    <br>
-    {{era}}
+    <form method = "post" action="{% url 'result' %}" >
+        {% csrf_token %}
+        <select name="current_year">
+            {% for year in years %}
+                <option value="{{year}}" {% if year == current_year %} selected="selected" {% endif %} >{{year}}</option>s
+            {% endfor %}
+        </select>
+        <Button type='submit'>Submit</Button>
+    </form>
   <div id="container"></div>
   <script src="https://code.highcharts.com/highcharts.src.js"></script>
   <script>
