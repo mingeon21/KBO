@@ -89,4 +89,16 @@
         series
     });
   </script>
+    <h2>
+    Predict by linear regression
+    </h2>
+    <form method = "post" action="{% url 'result' %}" >
+        {% csrf_token %}
+        <label for = "w">
+            Input value (w):
+        </label>
+        <input type = "text" name = "w" id = "w" value = "{{current_w}}">
+        <Button type='submit'>Submit</Button>
+    </form>
+    Predicted value (ip): {{ip}}
 </body>

@@ -1,6 +1,9 @@
 from django.http import HttpResponse
 from django.template import loader 
 from django.shortcuts import render 
+import joblib 
+
+
 YEARS=[str(y) for y in range(2023, 2002, -1)]
 def stringToFloat(ip_str):
     ip=0
@@ -33,16 +36,25 @@ def loadfile(request):
     return HttpResponse(template.render(context, request))
 
 def result(request):
-    if request.POST:
+    if request.POST and 'current_year' in request.POST:
         current_year = request.POST['current_year']
     else:
         current_year = '2023'
+    if request.POST and 'w' in request.POST:
+        current_w = request.POST['w']
+    else:
+        current_w = "-1"
     print(current_year)
     eraData, whipData = makeData(current_year)
-    context = {'eraData': eraData, 'whipData': whipData, 'years': YEARS, 'current_year': current_year}
+    ip=predict(float(current_w))
+    context = {'eraData': eraData, 'whipData': whipData, 'years': YEARS, 'current_year': current_year, 'current_w': current_w, 'ip': ip}
     return render(request, 'result.html', context )
 
-
+def predict(w):
+    model = joblib.load('status/model/kbo_model.joblib')
+    predict_val = model.predict([[w]])
+    print(predict_val)
+    return (predict_val)
 
 
 def makeData(year):
