@@ -94,11 +94,11 @@
     </h2>
     <form method = "post" action="{% url 'result' %}" >
         {% csrf_token %}
-        <label for = "w">
-            Input value (w):
+        <label for = "ip">
+            Input value (ip):
         </label>
-        <input type = "text" name = "w" id = "w" value = "{{current_w}}">
+        <input type = "text" name = "ip" id = "ip" value = "{{current_ip}}">
         <Button type='submit'>Submit</Button>
     </form>
-    Predicted value (ip): {{ip}}
+    Predicted value (era/whip): {{era}}, {{whip}}
 </body>

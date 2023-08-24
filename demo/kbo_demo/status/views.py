@@ -40,21 +40,26 @@ def result(request):
         current_year = request.POST['current_year']
     else:
         current_year = '2023'
-    if request.POST and 'w' in request.POST:
-        current_w = request.POST['w']
+    if request.POST and 'ip' in request.POST:
+        current_ip = request.POST['ip']
     else:
-        current_w = "-1"
+        current_ip = "-1"
     print(current_year)
     eraData, whipData = makeData(current_year)
-    ip=predict(float(current_w))
-    context = {'eraData': eraData, 'whipData': whipData, 'years': YEARS, 'current_year': current_year, 'current_w': current_w, 'ip': ip}
+    era, whip=predict(float(current_ip))
+    context = {'eraData': eraData, 'whipData': whipData, 'years': YEARS, 'current_year': current_year, 'current_ip': current_ip, 'era': era, 'whip': whip}
     return render(request, 'result.html', context )
 
-def predict(w):
-    model = joblib.load('status/model/kbo_model.joblib')
-    predict_val = model.predict([[w]])
-    print(predict_val)
-    return (predict_val)
+def predict(ip):
+    model_era = joblib.load('status/model/kbo_model_ERA.joblib')
+    model_whip = joblib.load('status/model/kbo_model_WHIP.joblib')
+    predict_era = model_era.predict([[ip]])
+    print(predict_era)
+    predict_whip = model_whip.predict([[ip]])
+    print(predict_whip)
+    return (predict_era, predict_whip)
+
+
 
 
 def makeData(year):
