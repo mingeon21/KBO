@@ -20,13 +20,18 @@ def stringToFloat(ip_str):
         else:
             ip = ip + 0.66
     return ip
-            
 
-def train(input_file_name, output_file_name):
+def checkForMinus(str):
+    print(str)
+    if '-' in str :
+        return 100
+    else:
+        return float(str)         
+
+def train(input_file_name, output_file_name, x_name, y_name):
     df = pd.read_csv(input_file_name, sep="\t")
-    X = df['W']
-    df['IP'] = df['IP'].apply(stringToFloat)
-    y = df['IP']
+    X = df[x_name].apply(stringToFloat)
+    y = df[y_name].apply(checkForMinus)
     print(X)
     print(y)
 
@@ -37,8 +42,11 @@ def train(input_file_name, output_file_name):
 
 
 def main():
-    train('PitchingStats_2023.tsv', 'kbo_model.joblib')
-    model = joblib.load('kbo_model.joblib')
+    x_name = 'IP'
+    y_name = 'WHIP'
+    train('data/PitchingStats_2023.tsv', f'./kbo_model_{y_name}.joblib', x_name, y_name)
+    model = joblib.load('./kbo_model.joblib')
     predict_val = model.predict([[5], [6]])
     print(predict_val)
 
+main()
