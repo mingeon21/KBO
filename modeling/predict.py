@@ -1,7 +1,8 @@
 from sklearn.linear_model import LinearRegression
 import pandas as pd
 import joblib
-
+import os
+import math
 
 def stringToFloat(ip_str):
     ip=0
@@ -21,17 +22,27 @@ def stringToFloat(ip_str):
             ip = ip + 0.66
     return ip
 
-def checkForMinus(str):
-    print(str)
-    if '-' in str :
+def checkForMinus(_str):
+    print(_str)
+    if isinstance(_str, str) and '-' in _str :
         return 100
+    elif isinstance(_str, float) and math.isnan(_str):
+        return 50
     else:
-        return float(str)         
+        return float(_str)         
 
-def train(input_file_name, output_file_name, x_name, y_name):
-    df = pd.read_csv(input_file_name, sep="\t")
-    X = df[x_name].apply(stringToFloat)
-    y = df[y_name].apply(checkForMinus)
+def train(input_dir, output_file_name, x_name, y_name):
+    files = os.listdir(input_dir)
+    df_all_years = pd.DataFrame()
+
+    for file in files:
+        input_file_name = f'{input_dir}/{file}'
+        print(input_file_name)
+        df = pd.read_csv(input_file_name, sep="\t")
+        df_all_years = pd.concat([df_all_years, df])
+
+    X = df_all_years[x_name].apply(stringToFloat)
+    y = df_all_years[y_name].apply(checkForMinus)
     print(X)
     print(y)
 
@@ -43,8 +54,8 @@ def train(input_file_name, output_file_name, x_name, y_name):
 
 def main():
     x_name = 'IP'
-    y_name = 'WHIP'
-    train('data/PitchingStats_2023.tsv', f'./kbo_model_{y_name}.joblib', x_name, y_name)
+    y_name = 'ERA'
+    train('data', f'./kbo_model_{y_name}.joblib', x_name, y_name)
     model = joblib.load('./kbo_model.joblib')
     predict_val = model.predict([[5], [6]])
     print(predict_val)
