@@ -45,10 +45,21 @@ def result(request):
     else:
         current_ip = "-1"
     print(current_year)
-    eraData, whipData = makeData(current_year)
+    eraData, whipData, fullData = makeData(current_year)
+    min_info, max_info = minMaxInfo(eraData, fullData)
     era, whip=predict(float(current_ip))
-    context = {'eraData': eraData, 'whipData': whipData, 'years': YEARS, 'current_year': current_year, 'current_ip': current_ip, 'era': era, 'whip': whip}
-    return render(request, 'result.html', context )
+    context = {
+        'eraData': eraData, 
+        'whipData': whipData, 
+        'years': YEARS, 
+        'current_year': current_year, 
+        'current_ip': current_ip, 
+        'era': era, 
+        'whip': whip,
+        'min_info': min_info,
+        'max_info': max_info
+        }
+    return render(request, 'result.html', context)
 
 def predict(ip):
     model_era = joblib.load('status/model/kbo_model_ERA.joblib')
@@ -65,9 +76,12 @@ def predict(ip):
 def makeData(year):
     eraData = []
     whipData = []
+    fullData =[]
     f=open('status/data/PitchingStats_'+ year +'.tsv')
     for line in f.readlines() [1:]:
         words=line.rstrip().split('\t')
+        playerName = words[1]
+        teamName = words[2]
         ip= stringToFloat(words[10])
         if words[3] == '-' or float(words[3])>50:
             words[3] = '-5'
@@ -76,7 +90,17 @@ def makeData(year):
         era = float(words[3])
         whip = float(words[-1])
         eraData.append([ip, era])
-        whipData.append([ip,whip])
-    return eraData, whipData
+        whipData.append([ip, whip])
+        fullData.append([playerName, teamName, ip, era, whip])
+    return eraData, whipData, fullData
+
+def minMaxInfo(eraData, fullData):
+    min_index = eraData.index(min(eraData))
+    max_index = eraData.index(max(eraData))
+    min_info = fullData[min_index]
+    max_info = fullData[max_index]
+    return min_info, max_info
+
+
 
 
