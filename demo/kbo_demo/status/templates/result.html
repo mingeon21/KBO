@@ -12,24 +12,27 @@
                 <option value="{{year}}" {% if year == current_year %} selected="selected" {% endif %} >{{year}}</option>s
             {% endfor %}
         </select>
+        <select name="current_x">
+            {% for stat in stats_index %}
+                <option value="{{stat}}" {% if stat == current_x %} selected="selected" {% endif %} >{{stat}}</option>s
+            {% endfor %}
+        </select>
+        <select name="current_y">
+            {% for stat in stats_index %}
+                <option value="{{stat}}" {% if stat == current_y %} selected="selected" {% endif %} >{{stat}}</option>s
+            {% endfor %}
+        </select>
         <Button type='submit'>Submit</Button>
     </form>
   <div id="container"></div>
   <script src="https://code.highcharts.com/highcharts.src.js"></script>
   <script>
-    var era_data = '{{eraData|safe}}'
-    var whip_data = '{{whipData|safe}}'
+    var plot_data = '{{plotData|safe}}'
     var series = [
       {
-        name: 'ERA',
-        color: 'rgba(223, 83, 83, .8)',
-        data: JSON.parse(era_data)
+        name: '{{current_y}}',
+        data: JSON.parse(plot_data)
       },
-      {
-        name: 'WHIP',
-        color: 'rgba(119, 152, 191, .8)',
-        data: JSON.parse(whip_data)
-      }
     ]
     Highcharts.chart('container', {
         chart: {
@@ -42,7 +45,7 @@
         },
         xAxis: {
               title: {
-                  text: 'IP'
+                  text: '{{current_x}}'
               },
               labels: {
                   format: '{value}'
@@ -52,8 +55,11 @@
               showLastLabel: true
           },
         yAxis: {
+            title: {
+                  text: '{{current_y}}'
+            },
             labels: {
-                format: '{value}'
+                format: '{{value}}'
             }
         },
         legend: {
@@ -84,7 +90,7 @@
               }
           },
           tooltip: {
-              pointFormat: 'IP: {point.x}<br/> {point.series.name}: {point.y}'
+              pointFormat: '{{current_x}}: {point.x}<br/> {point.series.name}: {point.y}'
           },
         series
     });
@@ -101,18 +107,15 @@
             Team name
         </td>
         <td>
-            IP
+            {{current_x}}
         </td>
         <td>
-            ERA
-        </td>
-        <td>
-            WHIP
+            {{current_y}}
         </td>
     </tr>
     <tr>
         <td>
-            Player with lowest IP
+            Player with lowest {{current_x}}
         </td>
         <td>
             {{min_info.0}}
@@ -126,13 +129,10 @@
         <td>
             {{min_info.3}}
         </td>
-        <td>
-            {{min_info.4}}
-        </td>
     </tr>
     <tr>
         <td>
-            Player with highest IP
+            Player with highest {{current_x}}
         </td>
         <td>
             {{max_info.0}}
@@ -145,9 +145,6 @@
         </td>
         <td>
             {{max_info.3}}
-        </td>
-        <td>
-            {{max_info.4}}
         </td>
     </tr>
   </table>

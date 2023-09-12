@@ -3,8 +3,28 @@ from django.template import loader
 from django.shortcuts import render 
 import joblib 
 
-
 YEARS=[str(y) for y in range(2023, 2002, -1)]
+
+STATS_INDEX = {
+	'ERA':3,
+	'G':4,
+	'W':5,
+	'L':6,
+    'SV':7,
+    'HLD':8,
+    'WPCT':9,
+	'IP':10,
+    'H':11,
+    'HR':12,
+    'BB':13,
+    'HBP':14,
+    'SO':15,
+    'R':16,
+    'ER':17,
+    'WHIP':18
+}
+
+
 def stringToFloat(ip_str):
     ip=0
     words=ip_str.split(" ")
@@ -23,6 +43,8 @@ def stringToFloat(ip_str):
             ip = ip + 0.66
     return ip
 
+
+
 def loadfile(request):
     template = loader.get_template('status/table.html')
     pitcherInfo=[] 
@@ -40,22 +62,33 @@ def result(request):
         current_year = request.POST['current_year']
     else:
         current_year = '2023'
+
+    if request.POST and 'current_x' in request.POST:
+        current_x = request.POST['current_x']
+    else:
+        current_x = 'ERA'
+    
+    if request.POST and 'current_y' in request.POST:
+        current_y = request.POST['current_y']
+    else:
+        current_y = 'IP'
+
     if request.POST and 'ip' in request.POST:
         current_ip = request.POST['ip']
     else:
         current_ip = "-1"
-    print(current_year)
-    eraData, whipData, fullData = makeData(current_year)
-    min_info, max_info = minMaxInfo(eraData, fullData)
+    print(current_year, current_x, current_y)
+    plotData, fullData = makeData(current_year, current_x, current_y)
+    min_info, max_info = minMaxInfo(plotData, fullData, current_x, current_y)
     era, whip=predict(float(current_ip))
     context = {
-        'eraData': eraData, 
-        'whipData': whipData, 
+        'plotData': plotData,
         'years': YEARS, 
+        'stats_index': STATS_INDEX.keys(),
         'current_year': current_year, 
+        'current_x': current_x,
+        'current_y': current_y,
         'current_ip': current_ip, 
-        'era': era, 
-        'whip': whip,
         'min_info': min_info,
         'max_info': max_info
         }
@@ -71,34 +104,41 @@ def predict(ip):
     return (predict_era, predict_whip)
 
 
-
-
-def makeData(year):
-    eraData = []
-    whipData = []
+def makeData(year, x, y):
+    plotData = []
     fullData =[]
     f=open('status/data/PitchingStats_'+ year +'.tsv')
     for line in f.readlines() [1:]:
         words=line.rstrip().split('\t')
-        playerName = words[1]
-        teamName = words[2]
-        ip= stringToFloat(words[10])
+        words[10] = stringToFloat(words[10])
         if words[3] == '-' or float(words[3])>50:
-            words[3] = '-5'
+            continue
         if words[-1] == '-' or float(words[-1])>10:
-            words[-1] = '-5'
-        era = float(words[3])
-        whip = float(words[-1])
-        eraData.append([ip, era])
-        whipData.append([ip, whip])
-        fullData.append([playerName, teamName, ip, era, whip])
-    return eraData, whipData, fullData
+            continue
+        x_val = words[STATS_INDEX[x]]
+        y_val = words[STATS_INDEX[y]]
+        if x_val == '-' or y_val =='-':
+            continue
+        plotData.append([float(x_val), float(y_val)])
+        fullData.append(words)
+    return plotData, fullData
 
-def minMaxInfo(eraData, fullData):
-    min_index = eraData.index(min(eraData))
-    max_index = eraData.index(max(eraData))
-    min_info = fullData[min_index]
-    max_info = fullData[max_index]
+
+def minMaxInfo(plotData, fullData, x, y):
+    min_index = plotData.index(min(plotData))
+    max_index = plotData.index(max(plotData))
+    min_info = [
+        fullData[min_index][1], 
+        fullData[min_index][2], 
+        fullData[min_index][STATS_INDEX[x]], 
+        fullData[min_index][STATS_INDEX[y]]
+    ]
+    max_info = [
+        fullData[max_index][1], 
+        fullData[max_index][2], 
+        fullData[max_index][STATS_INDEX[x]], 
+        fullData[max_index][STATS_INDEX[y]]
+    ]
     return min_info, max_info
 
 
