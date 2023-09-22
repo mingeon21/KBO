@@ -73,14 +73,9 @@ def result(request):
     else:
         current_y = 'IP'
 
-    if request.POST and 'ip' in request.POST:
-        current_ip = request.POST['ip']
-    else:
-        current_ip = "-1"
     print(current_year, current_x, current_y)
     plotData, fullData = makeData(current_year, current_x, current_y)
     min_info, max_info = minMaxInfo(plotData, fullData, current_x, current_y)
-    era, whip=predict(float(current_ip))
     context = {
         'plotData': plotData,
         'years': YEARS, 
@@ -88,7 +83,6 @@ def result(request):
         'current_year': current_year, 
         'current_x': current_x,
         'current_y': current_y,
-        'current_ip': current_ip, 
         'min_info': min_info,
         'max_info': max_info
         }
@@ -142,5 +136,18 @@ def minMaxInfo(plotData, fullData, x, y):
     return min_info, max_info
 
 
+def ml(request):
+    if request.POST and 'ip' in request.POST:
+        current_ip = request.POST['ip']
+    else:
+        current_ip = '-1'
+
+    era, whip = predict(float(current_ip))
+    context = {
+        'current_ip': current_ip, 
+        'era': era, 
+        'whip': whip,
+    }
+    return render(request, 'ml.html', context)
 
 

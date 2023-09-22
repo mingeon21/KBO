@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     path("", views.loadfile, name="loadfile"),
-    path('result/', views.result, name='result'), 
+    path('statistics/', views.result, name='result'), 
+    path('ml/', views.ml, name='ml'), 
 ]
 
