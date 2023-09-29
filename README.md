@@ -1,5 +1,10 @@
 # KBO
 ## Demo
+### 데모
+* url:
+
+### 결과 (화면 캡처? 결과 읽는법? 설명)
+
 ### Overview - 목적, 어떤 프로그램인지
 * 무슨 프로그램이다
 * 모티베이션:
@@ -13,12 +18,14 @@
 cd ~~~
 python3.11 manage.py runserver 
 ```
-### 데모
-* url:
 
-### 결과 (화면 캡처? 결과 읽는법? 설명)
 
 ## Modeling
+### 데모
+* url:
+
+### 결과 (화면 캡처? 결과 읽는법? 설명)
+
 ### Overview - 목적, 어떤 프로그램인지
 * 무슨 프로그램이다
 * 모티베이션:
@@ -32,7 +39,4 @@ python3.11 manage.py runserver
 cd ~~~
 python3.11 manage.py runserver 
 ```
-### 데모
-* url:
 
-### 결과 (화면 캡처? 결과 읽는법? 설명)
