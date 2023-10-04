@@ -45,4 +45,5 @@ python3.11 predict.py
 ```
 ### Results
 <img width="438" alt="Screenshot 2023-10-04 at 22 52 39" src="https://github.com/mingeon21/KBO/assets/87740901/d97137bb-29cb-4f67-8225-1bbb93b4bc58">
+
 The machine learning tab only fixed number of statistical values. IP, ERA, and WHIP. When the user inputs the value of IP, machine learning algorithm will output the most likely values of ERA and WHIP for pitchers who threw inputed amount of IP. 
