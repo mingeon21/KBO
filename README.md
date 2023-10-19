@@ -1,7 +1,7 @@
 # KBO
 ## Demo
 
-* url: https://fdf6-39-118-39-230.ngrok-free.app/status/statistics
+* url: https://mingeonkim.ngrok.io/status/statistics/ 
 
 ### Overview 
 My project is centered on using the past 20 years of baseball statistics from the Korean Baseball Association. By utilizing graphical methods and the vast data, I aim to display players' performances on a yearly basis, transforming statistical data into a user-friendly graphical model, which displays the correlations of different baseball statistical values. This service aims to provide a more engaging understanding of baseball statistics for both existing fans and newcomers to the sport. My appreciation for baseball and its rich statistical depth and story drove my interest. While baseball's statistics offered an intricate perspective on players' performances, the decreasing popularity of the Korean Baseball League provoked my desire to emulate successful U.S. baseball prediction websites. I aspire to introduce Korean fans to the captivating realm of baseball predictions, merging my passion for the sport with a solution for a prevailing gap in the Korean baseball community.
@@ -25,7 +25,7 @@ Adjusting the 3 tabs at the top left corner, users can alter the x and y statist
 ## Machine Learning
 * Approach: Linear Regression
 ### DEMO
-* url: https://fdf6-39-118-39-230.ngrok-free.app/status/ml
+* url: https://mingeonkim.ngrok.io/status/ml/
 
 ### Overview 
 By leveraging machine learning algorithms, more specifically, Linear Regression, I aim to predict players' performances on a yearly basis, transforming statistical data into a user-friendly prediction model, especially since the Korean Baseball Organization lacks such a platform. The primary goal is to bridge the gap in Korea's baseball analytics by creating a user-friendly baseball prediction service using machine learning algorithms.
