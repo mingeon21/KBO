@@ -1,0 +1,20 @@
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+October 22, 2023 - 16:21:56
+Django version 4.2.4, using settings 'kbo_demo.settings'
+Starting development server at http://127.0.0.1:10000/
+Quit the server with CONTROL-C.
+
+2019 SV R
+[22/Oct/2023 16:24:24] "POST /status/statistics/ HTTP/1.1" 200 9849
+[9.34227183]
+[3.6818251]
+[22/Oct/2023 16:24:34] "GET /status/ml/ HTTP/1.1" 200 606
+[4.33752315]
+[1.38242052]
+[22/Oct/2023 16:24:37] "POST /status/ml/ HTTP/1.1" 200 608
