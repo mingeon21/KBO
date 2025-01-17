@@ -10,11 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-b8g$7je(uu9b+-goxz9$(%$(!79_nbj-lilma5%bp45i#vf2q&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['mingeonkim.ngrok.io', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
