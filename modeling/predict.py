@@ -41,7 +41,7 @@ def train(input_dir, output_file_name, x_name, y_name):
         df = pd.read_csv(input_file_name, sep="\t")
         df_all_years = pd.concat([df_all_years, df])
 
-    X = df_all_years[x_name].apply(stringToFloat)
+    X = df_all_years[x_name].apply(stringToFloat) 
     y = df_all_years[y_name].apply(checkForMinus)
     print(X)
     print(y)
