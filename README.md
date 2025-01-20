@@ -25,7 +25,7 @@ Adjusting the 3 tabs at the top left corner, users can alter the x and y statist
 ## Machine Learning
 * Approach: Linear Regression
 ### DEMO
-* url: https://mingeonkim.ngrok.io/status/ml/
+* url: https://kbo-prediction-447321.uc.r.appspot.com/status/ml
 
 ### Overview 
 By leveraging machine learning algorithms, more specifically, Linear Regression, I aim to predict players' performances on a yearly basis, transforming statistical data into a user-friendly prediction model, especially since the Korean Baseball Organization lacks such a platform. The primary goal is to bridge the gap in Korea's baseball analytics by creating a user-friendly baseball prediction service using machine learning algorithms.
