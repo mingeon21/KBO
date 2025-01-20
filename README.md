@@ -1,7 +1,7 @@
 # KBO
 ## Demo
 
-* url: https://mingeonkim.ngrok.io/status/statistics/ 
+* url: https://kbo-prediction-447321.uc.r.appspot.com/status/statistics
 
 ### Overview 
 My project is centered on using the past 20 years of baseball statistics from the Korean Baseball Association. By utilizing graphical methods and the vast data, I aim to display players' performances on a yearly basis, transforming statistical data into a user-friendly graphical model, which displays the correlations of different baseball statistical values. This service aims to provide a more engaging understanding of baseball statistics for both existing fans and newcomers to the sport. My appreciation for baseball and its rich statistical depth and story drove my interest. While baseball's statistics offered an intricate perspective on players' performances, the decreasing popularity of the Korean Baseball League provoked my desire to emulate successful U.S. baseball prediction websites. I aspire to introduce Korean fans to the captivating realm of baseball predictions, merging my passion for the sport with a solution for a prevailing gap in the Korean baseball community.
